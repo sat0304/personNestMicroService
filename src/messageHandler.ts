@@ -2,21 +2,21 @@ import rabbitClient from "./rabbitMQ/client"
 
 export default class MessageHandler{
     static async handle(
-        operation: string,
+        routingKey: string,
         data: any,
         correlationId: string,
         replyTo: string,
     ) {
         let response = {};
 
-        const {num1, num2} = data;
+        const {nameOfRoutingKey} = data;
 
-        console.log('the operation is ', operation);
+        console.log('the name of routingKey is ', routingKey);
 
-        switch (operation) {
-            case 'multiply': response = num1 * num2;
+        switch (routingKey) {
+            case 'postPerson': response = `post person data ${nameOfRoutingKey}`;
             break;
-            case 'sum': response = num1 + num2;
+            case 'getPersons': response = `get person action ${nameOfRoutingKey}`;
             break;
             default: response = 0;
             break;

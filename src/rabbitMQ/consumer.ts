@@ -10,7 +10,7 @@ export default class Consumer {
             this.rpcQueueName,
             async (message: ConsumeMessage) => {
             const {correlationId, replyTo} = message.properties;
-            const operation = message.properties.headers.function;
+            const routingKey = message.properties.headers.routingKey;
 
             if (!correlationId || !replyTo) {
                 console.log('Missing some properties ...');
@@ -23,7 +23,7 @@ export default class Consumer {
             }
 
             await MessageHandler.handle(
-                operation,
+                routingKey,
                 // JSON.parse(message.content.toString()).operation,
                 JSON.parse(message.content.toString()),
                 correlationId,
