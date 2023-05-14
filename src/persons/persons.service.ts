@@ -36,14 +36,12 @@ export class PersonsService {
 
     async updateProfessionOfPerson( 
         personKinopoiskId: number, 
-        professions: string[] ) {
+        professionName: string) {
         const person = await this.personRepo.findOne(
             {where: { personKinopoiskId }});
-        for (let i = 0; i < professions.length; i++) {
-            let profession = await this.professionService.getProfessionByName(
-                professions[i]);
+        let profession = await this.professionService.getProfessionByName(
+                professionName);
             await person.$add( 'professions', [profession.profession] );
-        }
         return person;
     }
 }

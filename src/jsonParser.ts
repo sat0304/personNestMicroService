@@ -16,9 +16,11 @@ const personsController = new PersonsController(personsService);
 
 export class PersonList {
 
+  professionsList = new Set();
+
   async createPersons(personList: any) {
     try {
-      const persons = personList;
+      const persons = personList.persons;
       for (let i = 0; i < persons.length; i++) {
         let personKinopoiskId = Number(persons[i].kinopoiskId);
         let photoLink = persons[i].photoLink;
@@ -30,45 +32,28 @@ export class PersonList {
           name,
           enName
         });
-        const professionPersonIds = [];
-        if (persons[i].professions != null) {
-          const professionList = persons[i].professions;
-          for (let j = 0; j < professionList.length; j++) {
-            professionPersonIds.push(professionList[j]);
-            let profession = professionList[j];
+        const professions = persons[i].professions;
+        for (let j = 0; j < professions.length; j++) {
+          const profession = professions[j];
+          if ( !this.professionsList.has(profession)) {
+            this.professionsList.add(profession);
             await professionsController.create({
-              profession, 
+              profession
             });
+            await personsController.updateProfession(
+              personKinopoiskId,
+              profession
+            );
+          } else {
+            await personsController.updateProfession(
+              personKinopoiskId,
+              profession
+            );
           }
         }
-        await personsController.updateProfession(
-          personKinopoiskId,
-          professionPersonIds,
-        );  
       }
     } catch (e) {
         console.log('The person already exists', 3001);
     }
   }
-
-
-//   async createProfessions(personList: any) {
-//     try {
-//       const persons = personList;
-//       for (let i = 0; i < persons.length; i++) {
-//         if (persons[i].professions != null) {
-//           const professionList = persons[i].professions;
-//           for (let j = 0; j < professionList.length; j++) {
-//             professionPersonIds.push(professionList[j].profession);
-//             let profession = professionList[j].profession;
-//             await professionsController.create({
-//               profession, 
-//             });
-//           }
-//         }
-//       }
-//     } catch (e) {
-//       console.log('The profession already exists', 3002);
-//     }
-//   }
 }

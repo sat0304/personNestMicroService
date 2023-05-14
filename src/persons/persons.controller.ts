@@ -30,9 +30,9 @@ export class PersonsController {
     @Patch('/:personKinopoiskId')
     async updateProfession(
         @Param('personKinopoiskId') personKinopoiskId: number,
-        professions: string[]) {
+        profession: string) {
       return await this.personService.updateProfessionOfPerson(
         personKinopoiskId, 
-        professions);
+        profession);
     }
 }
