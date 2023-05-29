@@ -25,12 +25,12 @@ export class PersonList {
         let personKinopoiskId = Number(persons[i].kinopoiskId);
         let photoLink = persons[i].photoLink;
         let name = persons[i].name;
-        let enName = persons[i].enName;
+        let nameEng = persons[i].enName;
         await personsController.create({
           personKinopoiskId,
           photoLink,
           name,
-          enName
+          nameEng
         });
         const professions = persons[i].professions;
         for (let j = 0; j < professions.length; j++) {

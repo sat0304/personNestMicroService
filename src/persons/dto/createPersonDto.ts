@@ -4,5 +4,5 @@ export class CreatePersonDto {
     personKinopoiskId: number;
     photoLink: string;
     name: string;
-    enName: string;
+    nameEng: string;
 }

@@ -29,8 +29,8 @@ export class PersonsService {
     }
 
     async getAllPersons() {
-        // const persons = await this.personRepo.findAll();
-        const persons = await this.personRepo.findAll({include: { all: true}});
+        const persons = await this.personRepo.findAll();
+        // const persons = await this.personRepo.findAll({include: { all: true}});
         return persons;
     }
 

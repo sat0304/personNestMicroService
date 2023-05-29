@@ -18,7 +18,7 @@ export class PersonsController {
     }
 
     @Get('/:personKinopoiskId')
-    async getByKinopoiskId(@Param('personKinopoiskIdd') personKinopoiskId: number  ) {
+    async getByKinopoiskId(@Param('personKinopoiskId') personKinopoiskId: number  ) {
         return await this.personService.getPersonByKinopoiskId(personKinopoiskId);
     }
 
