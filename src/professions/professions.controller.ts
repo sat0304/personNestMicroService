@@ -7,17 +7,22 @@ export class ProfessionsController {
     constructor( private professionService: ProfessionsService) {}
 
     @Post()
-    create(@Body() dto: CreateProfessionDto) {
-        return this.professionService.createProfession(dto);
+    async create(@Body() dto: CreateProfessionDto) {
+        return await this.professionService.createProfession(dto);
     }
 
     @Get('/:profession')
-    getByName(@Param('profession') profession: any ) {
-        return this.professionService.getProfessionByName( profession );
+    async getByName(@Param('profession') profession: any ) {
+        return await this.professionService.getProfessionByName( profession );
     }
 
     @Get()
-    getAll() {
-        return this.professionService.getAllProfessions();
+    async getAll() {
+        return await this.professionService.getAllProfessions();
+    }
+
+    @Get()
+    async getPersonProfessions( personKinopoiskId: number  ) {
+        return await this.professionService.getPersonProfessions(personKinopoiskId);
     }
 }

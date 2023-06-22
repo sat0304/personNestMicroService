@@ -24,7 +24,8 @@ export class PersonsService {
     }
 
     async getPersonByKinopoiskId( personKinopoiskId: number ) {
-        const person = await this.personRepo.findOne({where: { personKinopoiskId }});
+        const person = await this.personRepo.findOne(
+            {where: { personKinopoiskId }});
         return person;
     }
 

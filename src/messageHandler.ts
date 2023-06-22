@@ -26,26 +26,30 @@ export default class MessageHandler{
     replyTo: string,
     ) {
       let response = {};
+      const {personKinopoiskId} = data;
 
       switch (routingKey) {
         case 'postPerson':
           await personList.createPersons(data);
-          response = 'New person is created';
+          response = data.persons;
           break;
         case 'getPersons':
           response = await personsController.getAllPersons();
           break;
         case 'getPerson':
-          const {personKinopoiskId} = data;
           response = await personsController.getByKinopoiskId(personKinopoiskId);
           break;
-          case 'getProfessions':
+        case 'getProfessions':
           response = await professionsController.getAll();
           break;
         case 'getProfession':
           const {profession} = data;
           response = await professionsController.getByName(profession);
           break;
+        case 'getPersonProfessions':
+          response = await professionsController.getPersonProfessions(personKinopoiskId);
+          break;
+          
         default: response = 0;
           break;
     }
